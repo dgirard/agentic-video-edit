@@ -9,30 +9,32 @@ import {
   useVideoConfig,
 } from 'remotion';
 import timings from './timings.json';
+import brand from './brand.json'; // local, non committé (cp brand.example.json brand.json)
 
-// Tokens (gabarit public examples/tokens.example.css ; charte reelle = design-system/ prive)
-const ACCENT = '#ff6600';
-const DARK = '#0b0b0b';
-const WHITE = '#ffffff';
+const ACCENT = brand.accent;
+const PANEL = brand.panelBg;
+const TITLE = brand.title;
+const SUB = brand.sub;
 const SANS = 'Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
+
+// Entree ressort + sortie fondu, partagees par les deux types d'overlay.
+const useInOut = (durationInFrames: number) => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const enter = spring({frame, fps, config: {damping: 200, mass: 0.6}});
+  const exit = interpolate(frame, [durationInFrames - 12, durationInFrames], [1, 0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+  return {opacity: enter * exit, x: interpolate(enter, [0, 1], [-40, 0])};
+};
 
 const LowerThird: React.FC<{title: string; sub: string; durationInFrames: number}> = ({
   title,
   sub,
   durationInFrames,
 }) => {
-  const frame = useCurrentFrame();
-  const {fps} = useVideoConfig();
-
-  // Entree : ressort (slide + fade). Sortie : fondu sur les 12 dernieres frames.
-  const enter = spring({frame, fps, config: {damping: 200, mass: 0.6}});
-  const exit = interpolate(frame, [durationInFrames - 12, durationInFrames], [1, 0], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  const opacity = enter * exit;
-  const x = interpolate(enter, [0, 1], [-40, 0]);
-
+  const {opacity, x} = useInOut(durationInFrames);
   return (
     <AbsoluteFill style={{justifyContent: 'flex-end', alignItems: 'flex-start'}}>
       <div
@@ -48,32 +50,53 @@ const LowerThird: React.FC<{title: string; sub: string; durationInFrames: number
         }}
       >
         <div style={{width: 8, background: ACCENT}} />
-        <div style={{background: DARK, padding: '14px 26px 16px 20px'}}>
-          <div
-            style={{
-              fontFamily: SANS,
-              fontWeight: 800,
-              fontSize: 38,
-              letterSpacing: 0.5,
-              color: WHITE,
-              lineHeight: 1.05,
-            }}
-          >
+        <div style={{background: PANEL, padding: '14px 26px 16px 20px'}}>
+          <div style={{fontFamily: SANS, fontWeight: 800, fontSize: 38, letterSpacing: 0.5, color: TITLE, lineHeight: 1.05}}>
             {title}
           </div>
-          <div
-            style={{
-              fontFamily: SANS,
-              fontWeight: 500,
-              fontSize: 22,
-              marginTop: 6,
-              color: ACCENT,
-              letterSpacing: 0.3,
-            }}
-          >
+          <div style={{fontFamily: SANS, fontWeight: 500, fontSize: 22, marginTop: 6, color: SUB, letterSpacing: 0.3}}>
             {sub}
           </div>
         </div>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+type Group = {org: string; people: string};
+
+const SpeakersPanel: React.FC<{title: string; groups: Group[]; durationInFrames: number}> = ({
+  title,
+  groups,
+  durationInFrames,
+}) => {
+  const {opacity, x} = useInOut(durationInFrames);
+  return (
+    <AbsoluteFill style={{justifyContent: 'flex-end', alignItems: 'flex-start'}}>
+      <div
+        style={{
+          margin: '0 0 48px 56px',
+          opacity,
+          transform: `translateX(${x}px)`,
+          background: PANEL,
+          borderLeft: `8px solid ${ACCENT}`,
+          borderRadius: 6,
+          padding: '16px 28px 18px 22px',
+          boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
+          minWidth: 520,
+        }}
+      >
+        <div style={{fontFamily: SANS, fontWeight: 800, fontSize: 26, letterSpacing: 2, color: ACCENT, marginBottom: 10}}>
+          {title}
+        </div>
+        {groups.map((g, i) => (
+          <div key={i} style={{display: 'flex', alignItems: 'baseline', gap: 12, marginTop: i ? 7 : 0}}>
+            <div style={{fontFamily: SANS, fontWeight: 800, fontSize: 16, letterSpacing: 0.6, color: SUB, minWidth: 132}}>
+              {g.org}
+            </div>
+            <div style={{fontFamily: SANS, fontWeight: 500, fontSize: 20, color: TITLE}}>{g.people}</div>
+          </div>
+        ))}
       </div>
     </AbsoluteFill>
   );
@@ -84,12 +107,16 @@ export const Overlay: React.FC = () => {
   return (
     <AbsoluteFill style={{backgroundColor: 'black'}}>
       <OffthreadVideo src={staticFile(timings.video)} />
-      {timings.overlays.map((o, i) => {
+      {timings.overlays.map((o: any, i: number) => {
         const from = Math.round(o.start * fps);
         const dur = Math.max(1, Math.round((o.end - o.start) * fps));
         return (
           <Sequence key={i} from={from} durationInFrames={dur}>
-            <LowerThird title={o.title} sub={o.sub} durationInFrames={dur} />
+            {o.type === 'speakers' ? (
+              <SpeakersPanel title={o.title} groups={o.groups} durationInFrames={dur} />
+            ) : (
+              <LowerThird title={o.title} sub={o.sub} durationInFrames={dur} />
+            )}
           </Sequence>
         );
       })}

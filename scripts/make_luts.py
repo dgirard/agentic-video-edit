@@ -45,7 +45,15 @@ def punch(r, g, b):
     b = clamp(lum + (b - lum) * sat)
     return r, g, b
 
-GRADES = {"warm": warm, "teal-orange": teal_orange, "punch": punch}
+def sfeir(r, g, b):
+    # Aligne sur la charte chaude/ocre : balance doree (R+, G~, B-), leger S-curve.
+    r, g, b = (scurve(c, 0.18) for c in (r, g, b))
+    r = clamp(r * 1.05 + 0.015)
+    g = clamp(g * 1.015 + 0.005)
+    b = clamp(b * 0.90)
+    return r, g, b
+
+GRADES = {"warm": warm, "teal-orange": teal_orange, "punch": punch, "sfeir": sfeir}
 
 for name, fn in GRADES.items():
     path = os.path.join(LUT_DIR, f"{name}.cube")

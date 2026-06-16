@@ -22,6 +22,7 @@
 /work/final-edit.json
 /work/overlay-timings.json
 /graphics/src/timings.json
+/graphics/src/brand.json
 /graphics/public/
 !/work/transcripts/.gitkeep
 

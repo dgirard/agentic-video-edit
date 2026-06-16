@@ -1,0 +1,7 @@
+{
+  "_comment": "Gabarit PUBLIC des tokens de marque lus par les overlays Remotion. Copie-le en graphics/src/brand.json (git-ignoré) avec les valeurs de ta charte réelle (design-system/). Voir aussi examples/tokens.example.css.",
+  "accent": "#ff6600",
+  "panelBg": "#0b0b0b",
+  "title": "#ffffff",
+  "sub": "#ff6600"
+}
