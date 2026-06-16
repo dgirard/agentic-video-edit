@@ -20,14 +20,14 @@ export const Intro: React.FC = () => {
   const frame = useCurrentFrame();
   const {fps, durationInFrames, width, height} = useVideoConfig();
 
+  // Pas de fondu d'entree : la frame 0 doit deja afficher le titre (vignette non noire).
   const rise = spring({frame, fps, config: {damping: 200, mass: 0.7}});
-  const fadeIn = interpolate(frame, [0, 14], [0, 1], {extrapolateRight: 'clamp'});
   const fadeOut = interpolate(frame, [durationInFrames - 16, durationInFrames], [1, 0], {
     extrapolateLeft: 'clamp',
   });
-  const opacity = fadeIn * fadeOut;
-  const y = interpolate(rise, [0, 1], [28, 0]);
-  const barW = interpolate(rise, [0, 1], [0, 120]);
+  const opacity = fadeOut;
+  const y = interpolate(rise, [0, 1], [14, 0]);
+  const barW = interpolate(rise, [0, 1], [40, 120]);
 
   return (
     <AbsoluteFill style={{backgroundColor: PANEL, opacity}}>
