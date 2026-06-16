@@ -1,6 +1,7 @@
 import {Composition} from 'remotion';
 import {Overlay} from './Overlay';
 import {Programme, PROG_SECONDS} from './Programme';
+import {Intro, INTRO_SECONDS} from './Intro';
 import timings from './timings.json';
 
 const FPS = timings.fps;
@@ -11,6 +12,14 @@ const H = timings.height;
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      <Composition
+        id="Intro"
+        component={Intro}
+        durationInFrames={Math.round(INTRO_SECONDS * FPS)}
+        fps={FPS}
+        width={W}
+        height={H}
+      />
       <Composition
         id="Overlay"
         component={Overlay}
