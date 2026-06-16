@@ -4,7 +4,10 @@ Monter une vidéo de bout en bout en **pilotant des outils en ligne de commande*
 (ffmpeg, Whisper, Remotion) plutôt qu'un logiciel de montage — l'« édit » est un
 ensemble de **fichiers texte** versionnables, lisibles et re-rendables par un agent.
 
-Inspiré de la démo Claude Code *« How Fable edited its own launch video »*.
+Inspiré de la démo Claude Code *« How Fable edited its own launch video »* —
+la méthode d'origine est décrite ici :
+[ThariqS/cc-video-editing-deck · index.html](https://github.com/ThariqS/cc-video-editing-deck/blob/main/index.html)
+([rendu](https://raw.githack.com/ThariqS/cc-video-editing-deck/main/index.html)).
 
 ## Principe
 > Le montage est du texte : `final-edit.json` (coupes + raisons), `.cube` (étalonnage),
