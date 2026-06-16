@@ -1,0 +1,37 @@
+# ─────────────────────────────────────────────────────────────
+#  NE JAMAIS PARTAGER  (contenu privé / propriétaire)
+# ─────────────────────────────────────────────────────────────
+
+# Charte / design system propriétaire (SFEIR) — local uniquement
+/design-system/
+!/design-system/.gitkeep
+
+# Médias : rushes sources + rendus (lourds + privés)
+/media/
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.wav
+*.mp3
+*.MP4
+*.MOV
+
+# Artefacts dérivés de la vidéo privée (contiennent le contenu parlé)
+/work/transcripts/*.json
+/work/final-edit.json
+!/work/transcripts/.gitkeep
+
+# ─────────────────────────────────────────────────────────────
+#  Outils / build
+# ─────────────────────────────────────────────────────────────
+node_modules/
+.DS_Store
+*.log
+__pycache__/
+*.pyc
+.venv/
+venv/
+/graphics/out/
+.env
+.env.local

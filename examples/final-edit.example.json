@@ -1,0 +1,22 @@
+{
+  "_comment": "Exemple d'Edit Decision List (EDL). Le vrai work/final-edit.json est git-ignoré car dérivé de la vidéo privée. ffmpeg exécute ce fichier ; chaque coupe porte sa justification écrite.",
+  "project": "exemple",
+  "fps": 24,
+  "resolution": "3840x2160",
+  "scenes": [
+    {
+      "name": "Intro",
+      "candidate_takes": ["C001", "C002", "C003"],
+      "selection_rationale": "C002 retenue : zéro hésitation, fin nette. C001 coupe trop tôt, C003 a un 'euh' à 4.2s.",
+      "clips": [
+        {
+          "clip": "A004C002",
+          "source": "media/raw/A004C002.MP4",
+          "start": 1.89,
+          "end": 60.81,
+          "first_words": "Bonjour à tous, ici ..."
+        }
+      ]
+    }
+  ]
+}

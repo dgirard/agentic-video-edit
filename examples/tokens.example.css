@@ -1,0 +1,28 @@
+/* ─────────────────────────────────────────────────────────────
+   GABARIT de design system (exemple committé)
+   Copie-le en  design-system/<marque>.tokens.css  (dossier privé,
+   git-ignoré) puis remplace les valeurs par ta charte.
+   Le deck et les graphismes Remotion lisent ces variables.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Typo */
+  --font-headline: 'YourHeadlineFont', system-ui, sans-serif;
+  --font-body:     'YourBodyFont', system-ui, sans-serif;
+  --font-label:    'YourLabelFont', system-ui, sans-serif;
+  --font-mono:     ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Couleur d'accent + neutres */
+  --accent:   #ff6600;   /* couleur de marque principale */
+  --bg-dark:  #000000;   /* fond hero */
+  --bg-light: #f9f9f9;   /* fond clair */
+  --t1: #1b1b1b;         /* texte principal */
+  --t2: #4a4a4a;
+  --t3: #847564;         /* texte secondaire */
+  --white: #ffffff;
+
+  /* Alias attendus par le deck */
+  --sans: var(--font-body);
+  --serif: var(--font-headline);
+  --mono: var(--font-mono);
+}
