@@ -14,20 +14,20 @@ const TITLE = brand.title;
 const SUB = brand.sub;
 const SANS = 'Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
 
-const HEADER_H = 156;
-const ROW_H = 96;
-const VIEWPORT_H = 720 - HEADER_H - 24;
-
 export const PROG_SECONDS = 19;
 
 export const Programme: React.FC = () => {
   const frame = useCurrentFrame();
-  const {fps, durationInFrames} = useVideoConfig();
+  const {fps, durationInFrames, width, height} = useVideoConfig();
+
+  const PAD = Math.round(width * 0.07);
+  const HEADER_H = Math.round(height * 0.16);
+  const ROW_H = Math.round(height * 0.092);
+  const VIEWPORT_H = height - HEADER_H - Math.round(height * 0.03);
 
   const total = agenda.sessions.length * ROW_H;
   const scrollRange = Math.max(0, total - VIEWPORT_H);
 
-  // Defilement : hold debut, scroll eased, hold fin.
   const scrollStart = Math.round(1.0 * fps);
   const scrollEnd = durationInFrames - Math.round(2.5 * fps);
   const y = interpolate(frame, [scrollStart, scrollEnd], [0, -scrollRange], {
@@ -44,26 +44,23 @@ export const Programme: React.FC = () => {
 
   return (
     <AbsoluteFill style={{backgroundColor: PANEL, opacity}}>
-      {/* halo ocre discret en haut */}
       <AbsoluteFill
-        style={{
-          background: `radial-gradient(900px 360px at 18% -8%, ${ACCENT}22, transparent 70%)`,
-        }}
+        style={{background: `radial-gradient(${width}px ${height * 0.3}px at 18% -6%, ${ACCENT}22, transparent 70%)`}}
       />
 
       {/* En-tete fixe */}
-      <div style={{position: 'absolute', top: 0, left: 0, right: 0, height: HEADER_H, padding: '34px 56px 0'}}>
-        <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 18, letterSpacing: 3, color: ACCENT}}>
+      <div style={{position: 'absolute', top: 0, left: 0, right: 0, height: HEADER_H, padding: `${Math.round(height * 0.045)}px ${PAD}px 0`}}>
+        <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 18, letterSpacing: 2.5, color: ACCENT}}>
           {agenda.meta}
         </div>
-        <div style={{fontFamily: SANS, fontWeight: 900, fontSize: 48, letterSpacing: 0.5, color: TITLE, marginTop: 6}}>
+        <div style={{fontFamily: SANS, fontWeight: 900, fontSize: 44, letterSpacing: 0.5, color: TITLE, marginTop: 8, lineHeight: 1.02}}>
           {agenda.event}
         </div>
-        <div style={{width: 92, height: 5, background: ACCENT, marginTop: 14, borderRadius: 3}} />
+        <div style={{width: 86, height: 5, background: ACCENT, marginTop: 14, borderRadius: 3}} />
       </div>
 
       {/* Viewport defilant */}
-      <div style={{position: 'absolute', top: HEADER_H, left: 56, right: 56, height: VIEWPORT_H, overflow: 'hidden'}}>
+      <div style={{position: 'absolute', top: HEADER_H, left: PAD, right: PAD, height: VIEWPORT_H, overflow: 'hidden'}}>
         <div style={{transform: `translateY(${y}px)`}}>
           {agenda.sessions.map((s, i) => {
             const people = s.speakers
@@ -73,23 +70,24 @@ export const Programme: React.FC = () => {
               <div
                 key={i}
                 style={{
-                  height: ROW_H,
+                  minHeight: ROW_H,
                   display: 'flex',
-                  alignItems: 'center',
-                  gap: 22,
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  padding: '10px 0',
                   borderTop: `1px solid ${ACCENT}22`,
                 }}
               >
-                <div style={{fontFamily: SANS, fontWeight: 800, fontSize: 26, color: ACCENT, minWidth: 86}}>
-                  {s.time}
-                </div>
-                <div>
-                  <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 24, color: TITLE, lineHeight: 1.15}}>
+                <div style={{display: 'flex', alignItems: 'baseline', gap: 14}}>
+                  <div style={{fontFamily: SANS, fontWeight: 800, fontSize: 24, color: ACCENT, minWidth: 78}}>
+                    {s.time}
+                  </div>
+                  <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 24, color: TITLE, lineHeight: 1.12}}>
                     {s.title}
                   </div>
-                  <div style={{fontFamily: SANS, fontWeight: 500, fontSize: 17, color: SUB, marginTop: 4}}>
-                    {people}
-                  </div>
+                </div>
+                <div style={{fontFamily: SANS, fontWeight: 500, fontSize: 17, color: SUB, marginTop: 5, marginLeft: 92}}>
+                  {people}
                 </div>
               </div>
             );
