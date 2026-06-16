@@ -34,3 +34,9 @@ Le deck et les graphismes lisent des **tokens CSS** : `--accent`, `--bg-dark`, `
 ## Outils
 ffmpeg ✅ · Node ✅ · Python ✅. Whisper à installer : `pip install faster-whisper`.
 Remotion : `cd graphics && npm i` quand on attaque les graphismes.
+
+## Connaissances capitalisées
+`docs/solutions/` — solutions à des problèmes déjà résolus (bugs, bonnes pratiques,
+patterns de workflow), classées par catégorie avec un frontmatter YAML
+(`module`, `tags`, `problem_type`). Utile à consulter avant d'implémenter ou de
+déboguer dans une zone déjà documentée.
