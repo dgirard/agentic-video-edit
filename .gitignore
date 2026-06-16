@@ -20,6 +20,9 @@
 # Artefacts dérivés de la vidéo privée (contiennent le contenu parlé)
 /work/transcripts/*.json
 /work/final-edit.json
+/work/overlay-timings.json
+/graphics/src/timings.json
+/graphics/public/
 !/work/transcripts/.gitkeep
 
 # ─────────────────────────────────────────────────────────────
@@ -33,5 +36,6 @@ __pycache__/
 .venv/
 venv/
 /graphics/out/
+/luts/
 .env
 .env.local
