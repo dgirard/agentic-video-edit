@@ -23,6 +23,7 @@
 /work/overlay-timings.json
 /graphics/src/timings.json
 /graphics/src/brand.json
+/graphics/src/agenda.json
 /graphics/public/
 !/work/transcripts/.gitkeep
 
