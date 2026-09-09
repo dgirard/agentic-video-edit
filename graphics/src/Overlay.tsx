@@ -16,6 +16,8 @@ const PANEL = brand.panelBg;
 const TITLE = brand.title;
 const SUB = brand.sub;
 const SANS = 'Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
+// Marge basse des bandeaux (px) : a remonter quand la source porte deja un habillage chaine en bas d'image.
+const LOWER_BOTTOM: number = (timings as any).lower_margin_bottom ?? 56;
 
 // Entree ressort + sortie fondu, partagees par les deux types d'overlay.
 const useInOut = (durationInFrames: number) => {
@@ -39,7 +41,7 @@ const LowerThird: React.FC<{title: string; sub: string; durationInFrames: number
     <AbsoluteFill style={{justifyContent: 'flex-end', alignItems: 'flex-start'}}>
       <div
         style={{
-          margin: '0 0 56px 56px',
+          margin: `0 0 ${LOWER_BOTTOM}px 56px`,
           display: 'flex',
           alignItems: 'stretch',
           opacity,

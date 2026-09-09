@@ -24,13 +24,14 @@
 /graphics/src/timings.json
 /graphics/src/brand.json
 /graphics/src/agenda.json
+/graphics/src/teaser.json
 /graphics/public/
 !/work/transcripts/.gitkeep
 
 # ─────────────────────────────────────────────────────────────
 #  Outils / build
 # ─────────────────────────────────────────────────────────────
-node_modules/
+node_modules
 .DS_Store
 *.log
 __pycache__/

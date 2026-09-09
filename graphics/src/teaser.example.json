@@ -1,0 +1,11 @@
+{
+  "_comment": "Gabarit PUBLIC des cartes d'intro / de fin d'un teaser (compositions TeaserIntro et TeaserEnd). Copie-le en graphics/src/teaser.json (git-ignoré) avec les textes de ton émission.",
+  "intro_seconds": 3,
+  "end_seconds": 4,
+  "kicker": "CHAÎNE · ÉMISSION · DATE",
+  "title": "Titre de l'émission",
+  "subtitle": "Avec Invité·e 1, Invité·e 2 et Invité·e 3",
+  "end_title": "L'émission complète est en replay",
+  "end_sub": "chaine.tld › émission · 28 min",
+  "end_tag": "EXTRAITS"
+}

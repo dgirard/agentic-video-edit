@@ -2,6 +2,7 @@ import {Composition} from 'remotion';
 import {Overlay} from './Overlay';
 import {Programme, PROG_SECONDS} from './Programme';
 import {Intro, INTRO_SECONDS} from './Intro';
+import {TeaserIntro, TeaserEnd, TEASER_INTRO_SECONDS, TEASER_END_SECONDS} from './Teaser';
 import timings from './timings.json';
 
 const FPS = timings.fps;
@@ -24,6 +25,22 @@ export const RemotionRoot: React.FC = () => {
         id="Overlay"
         component={Overlay}
         durationInFrames={DURATION}
+        fps={FPS}
+        width={W}
+        height={H}
+      />
+      <Composition
+        id="TeaserIntro"
+        component={TeaserIntro}
+        durationInFrames={Math.round(TEASER_INTRO_SECONDS * FPS)}
+        fps={FPS}
+        width={W}
+        height={H}
+      />
+      <Composition
+        id="TeaserEnd"
+        component={TeaserEnd}
+        durationInFrames={Math.round(TEASER_END_SECONDS * FPS)}
         fps={FPS}
         width={W}
         height={H}
